@@ -1,0 +1,121 @@
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+        width: 30cm;
+        margin: 0cm .1875cm;
+        }
+    .label{
+        /* Avery 5160 labels -- CSS and HTML by MM at Boulder Information Services */
+        width: 14cm; /* plus .6 inches from padding */
+        height: 10cm; /* plus .125 inches from padding */
+        padding: .125cm .3cm 0;
+        margin-right: .125cm; /* the gutter */
+
+        float: left;
+        font-size: 15px;
+        text-align: center;
+        overflow: hidden;
+
+        outline: 1px dotted; /* outline doesn't occupy space like border does */
+        }
+    .page-break  {
+        clear: left;
+        display:block;
+        page-break-after:always;
+        }
+    
+    h2 {
+   width: 100%; 
+   text-align: center; 
+   border-bottom: 1px solid #000; 
+   line-height: 0.1em;
+   margin: 10px 0 20px; 
+} 
+
+h2 span { 
+    background:#fff; 
+    padding:0 10px; 
+}
+
+
+
+
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {  
+  width: 21cm;
+  height: 29.7cm; 
+}
+page[size="A4"][layout="portrait"] {
+  margin-top: 16mm;
+  width: 30cm;
+  height: 14mm;  
+}
+@media print {
+  body, page {
+    margin: 0;
+    box-shadow: 0;
+  }
+
+}
+  </style>
+
+</head>
+
+<body>
+  <div id="labels">
+  <div class="page-break"></div>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+  <script>
+    function readJSON(file) {
+      var request = new XMLHttpRequest();
+      request.open('GET', file, false);
+      request.send(null);
+      if (request.status == 200)
+        return request.responseText;
+    };
+
+    function createTableDom(labelData) {
+      var divRow = [];
+      labelData.forEach(function (row, index) {
+        divRow.push(createLabel(row, index));
+      });
+
+      return divRow;
+    }
+
+    function createLabel(row, index) {
+      var labeltable = '<div class="label"> \
+    <img src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=175x175&chl=https%3A%2F%2Fthedivinesenses.com%2Ftrust%3Fuuid%3D'+row.UUID+'"> \
+    <h2> <span>THE DIVINE SENSES</span></h2>\
+    Batch No: '+row.BatchNo+'\
+    <br> MRP: ₹'+row.MRP+' (includive of all taxes)\
+    <br>Product: eleVate Divine Diya\
+    <br> Manufactuting Date: '+row.DateOfPackaging+'\
+    <br> Quantity: '+row.Quantity+' pieces of Diya inside the box\
+  <p>Please scan QR Code and visit our website to know more about this product. \
+   <div align="right">'+row.SrlNo+'</div></p>\
+  </div>'
+      return labeltable;
+    }
+
+      var jsonUrl = '/data/sample.json';
+      console.log(jsonUrl);
+      var data = readJSON(jsonUrl);
+      var dataObj = JSON.parse(data);
+      // if(dataObj) {
+      var divRowData = createTableDom(dataObj);
+      var ldiv = document.getElementById("labels").innerHTML=divRowData.join('');
+  </script>
+</body>
+
+</html>
