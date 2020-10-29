@@ -6,23 +6,29 @@
   <style>@page { size: A4 }</style>
 
   <style>
-    #labels {
+    #labels > div {
       display: flex;
       flex-wrap: wrap;
+      padding: 15mm 5mm;
+      break-after: page;
     }
     .label {
-      flex: 0 0 47%;
+      flex: 0 0 45%;
       text-align: center;
       padding: 10px;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
       font-size: 12px;
+      border: 2px solid;
+    }
+    .label:nth-child(odd) {
+      margin-right: 15px;
     }
     h2 {
       margin: 0;
       font-size: 20px;
     }
-    .padding-5mm {
-      padding: 5mm;
+    .padding-0mm {
+      padding: 0;
     }
     .d-flex {
       display: flex;
@@ -31,13 +37,16 @@
     .align-left {
       text-align: left;
     }
+    body .sheet {
+      overflow: inherit;
+    }
   </style>
 
 </head>
 
 <body class="A4">
   <!-- <div id="labels"> -->
-  <section class="sheet padding-10mm">
+  <section class="sheet padding-0mm">
     <div id="labels"></div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
@@ -52,11 +61,18 @@
 
     function createTableDom(labelData) {
       var divRow = [];
+      var divRow_2 = [];
       labelData.forEach(function (row, index) {
         divRow.push(createLabel(row, index));
+
+        // if (index >= (index + 1) * 7) {
+        if ((index + 1) % 8 === 0) {
+          divRow_2.push('<div>' + divRow.join('') + '</div>')
+          divRow = [];
+        }
       });
 
-      return divRow;
+      return divRow_2;
     }
 
     function createLabel(row, index) {
@@ -67,7 +83,7 @@
         <div class="d-flex">
           <div>
             <img
-              src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=100x100&chl=https%3A%2F%2Fthedivinesenses.com%2Ftrust%3Fuuid%3D${row.UUID}" />
+              src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=130x130&chl=https%3A%2F%2Fthedivinesenses.com%2Ftrust%3Fuuid%3D${row.UUID}" />
           </div>
           <div class="align-left">
             Batch No: 2323232
