@@ -79,22 +79,22 @@
 
     var labeltable = `
       <div class="label">
-        <h2>The Product</h2>
+        <h2>THE DIVINE SENSES</h2>
         <div class="d-flex">
           <div>
             <img
               src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=130x130&chl=https%3A%2F%2Fthedivinesenses.com%2Ftrust%3Fuuid%3D${row.UUID}" />
           </div>
           <div class="align-left">
-            Batch No: 2323232
+            Batch No: ${row.BatchNo}
             <br>Product: eleVate Divine Diya
-            <br> Manufactuting Date: 10/10/2020
-            <br> MRP: 1000 (includive of all taxes)
-            <br> Quantity: 5 pieces inside the box
+            <br> Manufactuting Date: ${row.DateOfPackaging}
+            <br> MRP: ______ (includive of all taxes)
+            <br> Quantity: ${row.Quantity} pieces inside the box
           </div>
         </div>
         <p>Please scan QR Code and visit our website to know more about this product. </p>
-        <div align="right">100002</div>
+        <div align="right">${row.SrlNo}</div>
       </div>
     `;
 
