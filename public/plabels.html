@@ -2,79 +2,44 @@
 
 <head>
   <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.3.0/paper.css">
+  <style>@page { size: A4 }</style>
+
   <style>
-    body {
-        width: 30cm;
-        margin: 0cm .1875cm;
-        }
-    .label{
-        /* Avery 5160 labels -- CSS and HTML by MM at Boulder Information Services */
-        width: 120mm; /* plus .6 inches from padding */
-        height: 70mm; /* plus .125 inches from padding */
-        padding: .125cm .3cm 0;
-        margin-right: .125cm; /* the gutter */
-
-        float: left;
-        font-size: 15px;
-        text-align: center;
-        overflow: hidden;
-
-        outline: 1px dotted; /* outline doesn't occupy space like border does */
-        }
-    .page-break  {
-        clear: left;
-        display:block;
-        page-break-after:always;
-        }
-    
+    #labels {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .label {
+      flex: 0 0 47%;
+      text-align: center;
+      padding: 10px;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
     h2 {
-   width: 100%; 
-   text-align: center; 
-   border-bottom: 1px solid #000; 
-   line-height: 0.1em;
-   margin: 10px 0 20px; 
-} 
-
-h2 span { 
-    background:#fff; 
-    padding:0 10px; 
-}
-
-
-
-
-page {
-  background: white;
-  display: block;
-  margin: 0 auto;
-  margin-bottom: 0.5cm;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-}
-page[size="A4"] {  
-  width: 21cm;
-  height: 29.7cm; 
-}
-page[size="A4"][layout="portrait"] {
-  margin-top: 25mm;
-  width: 30cm;
-  height: 14mm;  
-}
-@media print {
-  body, page {
-  width: 210mm;
-  height: 297mm; 
-  margin-top: 16mm;
-  }
-
-}
+      margin: 0;
+      font-size: 20px;
+    }
+    .padding-5mm {
+      padding: 5mm;
+    }
+    .d-flex {
+      display: flex;
+      align-items: center;
+    }
+    .align-left {
+      text-align: left;
+    }
   </style>
 
 </head>
 
-<body>
-  <div id="labels">
-  <div class="page-break"></div>
-</div>
+<body class="A4">
+  <!-- <div id="labels"> -->
+  <section class="sheet padding-10mm">
+    <div id="labels"></div>
+  </section>
   <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
   <script>
     function readJSON(file) {
@@ -95,17 +60,28 @@ page[size="A4"][layout="portrait"] {
     }
 
     function createLabel(row, index) {
-      var labeltable = '<div class="label"> \
-    <img src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=175x175&chl=https%3A%2F%2Fthedivinesenses.com%2Ftrust%3Fuuid%3D'+row.UUID+'"> \
-    <h2> <span>The Product</span></h2>\
-    Batch No: 2323232\
-    <br>Product: eleVate Divine Diya\
-    <br> Manufactuting Date: 10/10/2020\
-    <br> MRP: 1000 (includive of all taxes)\
-    <br> Quantity: 5 pieces inside the box\
-  <p>Please scan QR Code and visit our website to know more about this product. \
-   <div align="right">100002</div></p>\
-  </div>';
+
+    var labeltable = `
+      <div class="label">
+        <h2>The Product</h2>
+        <div class="d-flex">
+          <div>
+            <img
+              src="https://chart.googleapis.com/chart?cht=qr&choe=UTF-8&chs=100x100&chl=https%3A%2F%2Fthedivinesenses.com%2Ftrust%3Fuuid%3D${row.UUID}" />
+          </div>
+          <div class="align-left">
+            Batch No: 2323232
+            <br>Product: eleVate Divine Diya
+            <br> Manufactuting Date: 10/10/2020
+            <br> MRP: 1000 (includive of all taxes)
+            <br> Quantity: 5 pieces inside the box
+          </div>
+        </div>
+        <p>Please scan QR Code and visit our website to know more about this product. </p>
+        <div align="right">100002</div>
+      </div>
+    `;
+
       return labeltable;
     }
 
