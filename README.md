@@ -8,7 +8,7 @@ This is a simple HTML application that generates unique pritable sticker/labels 
 ### 4. Use Bowers Print option to preview and print labels.
 
 Demo of Sample Application:
-1. You can see working Demo of this application at Netlify : https://frosty-kare-b9f241.netlify.app/public/plabels.html 
+1. You can see working Demo of this application at Netlify : https://printablesticker.netlify.app/public/plabels.html 
 
 # References
 1. Google Chart used for QR Code generation.
