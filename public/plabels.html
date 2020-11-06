@@ -9,7 +9,7 @@
     #labels > div {
       display: flex;
       flex-wrap: wrap;
-      padding: 16mm 5mm;
+      padding: 17mm 5mm;
       break-after: page;
     }
     .label {
@@ -89,7 +89,7 @@
             Batch No: ${row.BatchNo}
             <br>Product: eleVate Divine Diya
             <br> Manufactuting Date: ${row.DateOfPackaging}
-            <br> MRP: ______ (includive of all taxes)
+            <br> MRP: ₹${row.MRP}/- (includive of all taxes)
             <br> Quantity: ${row.Quantity} pieces inside the box
           </div>
         </div>
@@ -101,7 +101,7 @@
       return labeltable;
     }
 
-      var jsonUrl = '/public/data/sample.json';
+      var jsonUrl = '/public/data/labels.json';
       console.log(jsonUrl);
       var data = readJSON(jsonUrl);
       var dataObj = JSON.parse(data);
