@@ -1,0 +1,58 @@
+<html>
+
+<head>
+
+</head>
+
+<body>
+<table id="mytable">
+    <tbody></tbody>
+</table>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
+  <script>
+    function readJSON(file) {
+      var request = new XMLHttpRequest();
+      request.open('GET', file, false);
+      request.send(null);
+      if (request.status == 200)
+        return request.responseText;
+    };
+
+    function createTableDom(labelData) {
+      var divRow = [];
+      var divRow_2 = [];
+      labelData.forEach(function (row, index) {
+        divRow.push(createLabel(row, index));
+      });
+
+      return divRow;
+    }
+
+    function createLabel(row, index) {
+
+    var labeltable = `
+      <tr>
+        <td>
+          ${row.SrlNo}
+          </td>
+          <td>
+            ${row.UUID}
+            </td>
+    `;
+
+      return labeltable;
+    }
+
+      var jsonUrl = '/public/data/labels.json';
+      console.log(jsonUrl);
+      var data = readJSON(jsonUrl);
+      var dataObj = JSON.parse(data);
+      // if(dataObj) {
+      var divRowData = createTableDom(dataObj);
+     // var ldiv = document.getElementsByTagName("tbody").innerHTML=divRowData.join('');
+      var tbody = document.getElementsByTagName('tbody')[0];
+      tbody.innerHTML = divRowData.join('');
+  </script>
+</body>
+
+</html>
