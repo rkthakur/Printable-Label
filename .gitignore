@@ -104,4 +104,4 @@ dist
 .tern-port
 
 #data
-public/data/labels.json
+public/data/la*.json
